@@ -7,6 +7,13 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" >
+        <WrapPanel HorizontalAlignment="Left" Margin="10,10,0,293"  Width="203" >
+            <Label Content="" Width="88" VerticalAlignment="Center"/>
+                <CheckBox Content="Run on boot" VerticalAlignment="Center"/>
+        </WrapPanel>
+        </Border>
+
+
     </Grid>
 </Window>

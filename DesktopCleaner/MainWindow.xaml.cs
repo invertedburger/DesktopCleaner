@@ -24,5 +24,10 @@ namespace DesktopCleaner
         {
             InitializeComponent();
         }
+
+        private void TextBox_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            MessageBox.Show("ahoj");
+        }
     }
 }
