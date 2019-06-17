@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using DesktopCleaner.Models;
 
 namespace DesktopCleaner
 {
@@ -28,6 +29,13 @@ namespace DesktopCleaner
         private void TextBox_MouseUp(object sender, MouseButtonEventArgs e)
         {
             MessageBox.Show("ahoj");
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var newSettings = new SettingsWindow();
+            newSettings.Show();
+
         }
     }
 }

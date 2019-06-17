@@ -5,15 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DesktopCleaner"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" >
-        <WrapPanel HorizontalAlignment="Left" Margin="10,10,0,293"  Width="203" >
-            <Label Content="" Width="88" VerticalAlignment="Center"/>
+        Title="Desktop Cleaner" Height="118.225" Width="217" ResizeMode="CanMinimize">
+
+        <Border BorderBrush="Black" BorderThickness="1" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" >
+            <StackPanel HorizontalAlignment="Left" Margin="10,10,10,10"   >
                 <CheckBox Content="Run on boot" VerticalAlignment="Center"/>
-        </WrapPanel>
+                <Button Content="Rules" Margin="0,10,0,10" Click="Button_Click" />
+            </StackPanel>
         </Border>
 
 
-    </Grid>
 </Window>
