@@ -1,4 +1,5 @@
-﻿using DesktopCleaner.Models;
+﻿using DesktopCleaner.Controllers;
+using DesktopCleaner.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -21,24 +22,24 @@ namespace DesktopCleaner
     /// </summary>
     public partial class SettingsWindow : Window
     {
-        public ObservableCollection<Rule> rulesList { get; set; }
+        public ObservableCollection<Rule> RulesList { get; set; }
         public SettingsWindow()
         {
             InitializeComponent();
+            var settingsWindowController = new SettingsWindowController();
 
-            
-            var rule = new Rule();
-            rulesList = new ObservableCollection<Rule>();
-            rulesList.Add(rule);
-            rule.Name = "jmeno";
+            //var rule = new Rule();
+            //RulesList = new ObservableCollection<Rule>();
+            //RulesList.Add(rule);
+            //rule.Name = "jmeno";
 
-            var rule2 = new Rule();
-            rule2.Name = "jmeno2";
-            rulesList.Add(rule2);
-            
+            //var rule2 = new Rule();
+            //rule2.Name = "jmeno2";
+            //RulesList.Add(rule2);
 
 
-            this.DataContext = rulesList;
+
+            this.DataContext = settingsWindowController.rules;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
