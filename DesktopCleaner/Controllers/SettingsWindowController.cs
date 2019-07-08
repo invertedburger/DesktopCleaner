@@ -9,30 +9,27 @@ using System.Xml.Serialization;
 
 namespace DesktopCleaner.Controllers
 {
-    class SettingsWindowController
+    internal class SettingsWindowController
     {
-
-        const string settingsFileName = "settings.xml";
+        private const string settingsFileName = "settings.xml";
 
         public List<Rule> rules;
 
         public SettingsWindowController()
         {
-
             rules = new List<Rule>();
             LoadSettings();
-            this.AddRule("<<new>>", "", "");
+            this.AddOrModifyRule(Consts.newRule, "", "");
         }
 
         public void LoadSettings()
         {
-
-            if (File.Exists(settingsFileName)) { 
+            if (File.Exists(settingsFileName))
+            {
                 var xmlSerializer = new XmlSerializer(typeof(List<Rule>));
                 var file = File.OpenRead(settingsFileName);
-                rules = (List<Rule>) xmlSerializer.Deserialize(file);
+                rules = (List<Rule>)xmlSerializer.Deserialize(file);
             }
-
         }
 
         public void SaveSettings()
@@ -44,17 +41,24 @@ namespace DesktopCleaner.Controllers
             xmlSerializer.Serialize(file, rules);
         }
 
-        public void AddRule(string name, string fileMask, string destinationFolderPath)
+        public void AddOrModifyRule(string name, string fileMask, string destinationFolderPath)
         {
-            var rule = new Rule()
+            var alreadyExists = this.rules.SingleOrDefault(x => x.Name == name);
+            if (alreadyExists == null)
             {
-                Name = name,
-                FileMask = fileMask,
-                DestinationFolderPath = destinationFolderPath
-            };
-            rules.Add(rule);
-            
+                var rule = new Rule()
+                {
+                    Name = name,
+                    FileMask = fileMask,
+                    DestinationFolderPath = destinationFolderPath
+                };
+                rules.Add(rule);
+            }
+            else
+            {
+                alreadyExists.FileMask = fileMask;
+                alreadyExists.DestinationFolderPath = destinationFolderPath;
+            }
         }
-
     }
 }

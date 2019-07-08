@@ -23,10 +23,13 @@ namespace DesktopCleaner
     public partial class SettingsWindow : Window
     {
         public ObservableCollection<Rule> RulesList { get; set; }
+        private SettingsWindowController settingsWindowController;
+
         public SettingsWindow()
         {
             InitializeComponent();
-            var settingsWindowController = new SettingsWindowController();
+            settingsWindowController = new SettingsWindowController();
+            settingsWindowController.LoadSettings();
 
             //var rule = new Rule();
             //RulesList = new ObservableCollection<Rule>();
@@ -37,15 +40,45 @@ namespace DesktopCleaner
             //rule2.Name = "jmeno2";
             //RulesList.Add(rule2);
 
-
-
             this.DataContext = settingsWindowController.rules;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-       
             this.AddChild(new Button() { Name = "test", Content = "ahoj" });
+        }
+
+        private void Button_Save(object sender, RoutedEventArgs e)
+        {
+            settingsWindowController.AddOrModifyRule(TextBoxName.Text, TextBoxFileMask.Text, TextBoxFolder.Text);
+            this.DataContext = null;
+            this.DataContext = settingsWindowController.rules;
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            settingsWindowController.SaveSettings();
+        }
+
+        private void RefreshList()
+        {
+        }
+
+        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var listbox = (ListBox)sender;
+            var selectedItem = (Rule)listbox.SelectedItem;
+
+            if ((selectedItem != null) && (selectedItem.Name != Consts.newRule))
+            {
+                TextBoxName.Text = settingsWindowController.rules.Single(x => x.Name == selectedItem.Name).Name;
+                TextBoxFileMask.Text = settingsWindowController.rules.Single(x => x.Name == selectedItem.Name).FileMask;
+                TextBoxFolder.Text = settingsWindowController.rules.Single(x => x.Name == selectedItem.Name).DestinationFolderPath;
+            }
+            else
+            {
+                TextBoxName.Text = TextBoxFileMask.Text = TextBoxFolder.Text = String.Empty;
+            }
         }
     }
 }
