@@ -13,37 +13,38 @@ namespace DesktopCleaner.Controllers
     {
         private const string settingsFileName = "settings.xml";
 
-        public List<Rule> rules;
+        public Settings settings;
 
         public SettingsWindowController()
         {
-            rules = new List<Rule>();
-            LoadSettings();
+            settings = new Settings();
+            settings = LoadSettings<Settings>();
             this.AddOrModifyRule(Consts.newRule, "", "");
         }
 
-        public void LoadSettings()
+        public T LoadSettings<T>()
         {
             if (File.Exists(settingsFileName))
             {
-                var xmlSerializer = new XmlSerializer(typeof(List<Rule>));
+                var xmlSerializer = new XmlSerializer(typeof(T));
                 var file = File.OpenRead(settingsFileName);
-                rules = (List<Rule>)xmlSerializer.Deserialize(file);
+                return (T)xmlSerializer.Deserialize(file);
             }
+            else return default(T);
         }
 
         public void SaveSettings()
         {
-            var xmlSerializer = new XmlSerializer(typeof(List<Rule>));
+            var xmlSerializer = new XmlSerializer(typeof(Settings));
 
             var file = System.IO.File.Create(settingsFileName);
 
-            xmlSerializer.Serialize(file, rules);
+            xmlSerializer.Serialize(file, settings);
         }
 
         public void AddOrModifyRule(string name, string fileMask, string destinationFolderPath)
         {
-            var alreadyExists = this.rules.SingleOrDefault(x => x.Name == name);
+            var alreadyExists = settings.Rules.SingleOrDefault(x => x.Name == name);
             if (alreadyExists == null)
             {
                 var rule = new Rule()
@@ -52,7 +53,7 @@ namespace DesktopCleaner.Controllers
                     FileMask = fileMask,
                     DestinationFolderPath = destinationFolderPath
                 };
-                rules.Add(rule);
+                settings.Rules.Add(rule);
             }
             else
             {

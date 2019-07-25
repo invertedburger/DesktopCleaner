@@ -7,34 +7,65 @@
         mc:Ignorable="d"
         Title="SettingsWindow" Height="450" Width="400" Closed="Window_Closed">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*" />
-            <ColumnDefinition Width="4*" />
-        </Grid.ColumnDefinitions>
-        <Border Background="GhostWhite" BorderBrush="Gainsboro" BorderThickness="1">
-            <StackPanel HorizontalAlignment="Stretch"  Margin="20" VerticalAlignment="Stretch" Grid.ColumnSpan="2">
-                <Label Content="List of rules:" />
-                <ListBox HorizontalAlignment="Left"  VerticalAlignment="Top"  ItemsSource="{Binding}" DisplayMemberPath="Name" SelectionChanged="ListBox_SelectionChanged" />
-            </StackPanel>
-        </Border>
-        <StackPanel Grid.Column="2" Margin="10,20,0,0">
-            <Label Content="Rule settings:" />
-            <StackPanel Orientation="Horizontal">
 
-                <StackPanel>
-                    <TextBlock Margin="5" Text="Name:" />
-                    <TextBlock Margin="5" Text="File mask:" />
-                    <TextBlock Margin="5"  Text="Folder:" />
-                </StackPanel>
+        <TabControl HorizontalAlignment="Stretch"  VerticalAlignment="Stretch"  Grid.ColumnSpan="2">
+            <TabItem Header="Rules">
+                <Grid Margin="0,0,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="13*" />
+                        <RowDefinition Height="46*" />
+                    </Grid.RowDefinitions>
 
-                <StackPanel HorizontalAlignment="Stretch" Width="164">
-                    <TextBox Margin="5" Name="TextBoxName"  Text="TextBox" HorizontalAlignment="Stretch" />
-                    <TextBox Margin="5"  Name="TextBoxFileMask" TextWrapping="Wrap" Text="TextBox" />
-                    <TextBox Margin="5" Name="TextBoxFolder" TextWrapping="Wrap" Text="TextBox" />
-                </StackPanel>
-            </StackPanel>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="49*" />
+                        <ColumnDefinition Width="80*" />
+                        <ColumnDefinition Width="257*" />
+                    </Grid.ColumnDefinitions>
+                    <Border Background="GhostWhite" BorderBrush="Gainsboro" BorderThickness="1" Grid.RowSpan="2" Grid.ColumnSpan="2">
+                        <StackPanel HorizontalAlignment="Stretch"  Margin="20" VerticalAlignment="Stretch" Grid.ColumnSpan="2">
+                            <Label Content="List of rules:" />
+                            <ListBox HorizontalAlignment="Left"  VerticalAlignment="Top"  ItemsSource="{Binding Path=(Rules)}" DisplayMemberPath="Name" SelectionChanged="ListBox_SelectionChanged" />
+                        </StackPanel>
+                    </Border>
+                    <StackPanel Grid.Column="2" Margin="10,20,0,0" Grid.RowSpan="2">
+                        <Label Content="Rule settings:" />
+                        <StackPanel Orientation="Horizontal">
 
-            <Button Content="Save" Margin="0,10,40,10" Width="50" HorizontalAlignment="Right" Click="Button_Save"></Button>
-        </StackPanel>
+                            <StackPanel>
+                                <TextBlock Margin="5" Text="Name:" />
+                                <TextBlock Margin="5" Text="File mask:" />
+                                <TextBlock Margin="5"  Text="Folder:" />
+                            </StackPanel>
+
+                            <StackPanel HorizontalAlignment="Stretch" Width="164">
+                                <TextBox Margin="5" Name="TextBoxName"  Text="TextBox" HorizontalAlignment="Stretch" />
+                                <TextBox Margin="5"  Name="TextBoxFileMask" TextWrapping="Wrap" Text="TextBox" />
+                                <TextBox Margin="5" Name="TextBoxFolder" TextWrapping="Wrap" Text="TextBox" />
+                            </StackPanel>
+                        </StackPanel>
+
+                        <Button Content="Save" Margin="0,10,40,10" Width="50" HorizontalAlignment="Right" Click="Button_Save"></Button>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Timer">
+                <Grid Background="#FFE5E5E5">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="180*" />
+
+                        <ColumnDefinition Width="0*" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" Grid.ColumnSpan="1" HorizontalAlignment="Stretch" Margin="2,27,0,0" VerticalAlignment="Stretch">
+                        <StackPanel>
+                            <TextBlock Margin="5" Text="Run rules every (s):" />
+                        </StackPanel>
+                        <StackPanel HorizontalAlignment="Stretch" Width="164">
+                            <TextBox Margin="5,5,104,5"   Text="{Binding Timer, Mode=TwoWay}" HorizontalAlignment="Stretch" />
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>

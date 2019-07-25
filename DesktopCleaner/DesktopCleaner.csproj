@@ -57,6 +57,7 @@
     </ApplicationDefinition>
     <Compile Include="Consts.cs" />
     <Compile Include="Controllers\SettingsWindowController.cs" />
+    <Compile Include="Models\Settings.cs" />
     <Compile Include="Views\SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
