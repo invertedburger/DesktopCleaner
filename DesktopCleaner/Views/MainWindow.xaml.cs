@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -24,6 +25,13 @@ namespace DesktopCleaner
         public MainWindow()
         {
             InitializeComponent();
+            var timer = new Timer(1000);
+            timer.Elapsed += TimerElaped;
+        }
+
+        public void TimerElaped(Object source, ElapsedEventArgs e)
+        {
+
         }
 
         private void TextBox_MouseUp(object sender, MouseButtonEventArgs e)

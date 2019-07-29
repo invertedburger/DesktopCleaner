@@ -56,8 +56,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Consts.cs" />
+    <Compile Include="Controllers\RuleController.cs" />
     <Compile Include="Controllers\SettingsWindowController.cs" />
     <Compile Include="Models\Settings.cs" />
+    <Compile Include="RoleRunner.cs" />
     <Compile Include="Views\SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
