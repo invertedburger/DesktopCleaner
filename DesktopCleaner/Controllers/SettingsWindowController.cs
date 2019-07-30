@@ -1,10 +1,12 @@
 ﻿using DesktopCleaner.Models;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Xml.Serialization;
 
 namespace DesktopCleaner.Controllers
@@ -19,11 +21,13 @@ namespace DesktopCleaner.Controllers
         {
             settings = new Settings();
             settings = new RuleController().LoadSettings<Settings>(settingsFileName);
-            this.AddOrModifyRule(Consts.newRule, "", "");
         }
 
         public void SaveSettings()
         {
+            //settings.Rules.RemoveAt(0);
+            SetStartUpOnBoot(settings.StartOnBoot);
+            SaveSettingsFileLocation();
             new RuleController().SaveSettings(settingsFileName, settings);
         }
 
@@ -44,6 +48,38 @@ namespace DesktopCleaner.Controllers
             {
                 alreadyExists.FileMask = fileMask;
                 alreadyExists.DestinationFolderPath = destinationFolderPath;
+            }
+        }
+
+        public void DeleteRule(Rule selecteditem)
+        {
+            settings.Rules.Remove(selecteditem);
+        }
+
+        public void SaveSettingsFileLocation()
+        {
+            Registry.CurrentUser.CreateSubKey("SOFTWARE\\IvoSoftware\\DesktopCleaner");
+            using (RegistryKey key = Registry.CurrentUser.OpenSubKey("SOFTWARE\\IvoSoftware\\DesktopCleaner", true))
+            {
+                key.SetValue("DesktopCleanerPath", Path.Combine(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location), Consts.settingsFileName));
+            }
+        }
+
+        public void SetStartUpOnBoot(bool startOnBoot)
+        {
+            if (startOnBoot)
+            {
+                using (RegistryKey key = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true))
+                {
+                    key.SetValue("DesktopCleaner", Path.Combine(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location), Consts.runnerFileName));
+                }
+            }
+            else
+            {
+                using (RegistryKey key = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true))
+                {
+                    key.DeleteValue("DesktopCleaner");
+                }
             }
         }
     }

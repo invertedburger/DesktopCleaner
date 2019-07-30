@@ -1,22 +1,24 @@
 ﻿using DesktopCleaner.Models;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DesktopCleaner
 {
-    internal class RoleRunner
+    public class RuleRunner
     {
-        public RoleRunner(Rule rule)
+        public RuleRunner(Rule rule)
         {
             var path = Path.Combine(Environment.GetEnvironmentVariable("USERPROFILE"), "Desktop");
 
             foreach (var item in Directory.GetFiles(path, rule.FileMask))
             {
-                File.Move(item, rule.DestinationFolderPath);
+                var destination = Path.Combine(rule.DestinationFolderPath, Path.GetFileName(item));
+
+                if (!File.Exists(destination))
+                    File.Move(item, destination);
+                else
+                {
+                }
             }
         }
     }

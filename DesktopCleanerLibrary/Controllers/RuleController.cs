@@ -9,15 +9,21 @@ using System.Xml.Serialization;
 
 namespace DesktopCleaner.Controllers
 {
-    internal class RuleController
+    public class RuleController
     {
-        public T LoadSettings<T>(string settingsFileName)
+        public T LoadSettings<T>(string settingsFileName) where T : class, new()
         {
             if (File.Exists(settingsFileName))
             {
                 var xmlSerializer = new XmlSerializer(typeof(T));
-                var file = File.OpenRead(settingsFileName);
-                return (T)xmlSerializer.Deserialize(file);
+                var returnValue = new T();
+
+                using (FileStream file = File.OpenRead(settingsFileName))
+                {
+                    returnValue = (T)xmlSerializer.Deserialize(file);
+                }
+
+                return returnValue;
             }
             else return default(T);
         }
@@ -26,9 +32,10 @@ namespace DesktopCleaner.Controllers
         {
             var xmlSerializer = new XmlSerializer(typeof(Settings));
 
-            var file = System.IO.File.Create(settingsFileName);
-
-            xmlSerializer.Serialize(file, settings);
+            using (var file = System.IO.File.Create(settingsFileName))
+            {
+                xmlSerializer.Serialize(file, settings);
+            }
         }
     }
 }

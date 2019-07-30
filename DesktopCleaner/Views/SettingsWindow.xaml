@@ -22,9 +22,12 @@
                         <ColumnDefinition Width="257*" />
                     </Grid.ColumnDefinitions>
                     <Border Background="GhostWhite" BorderBrush="Gainsboro" BorderThickness="1" Grid.RowSpan="2" Grid.ColumnSpan="2">
-                        <StackPanel HorizontalAlignment="Stretch"  Margin="20" VerticalAlignment="Stretch" Grid.ColumnSpan="2">
+                        <StackPanel HorizontalAlignment="Stretch"  Margin="20,20,20,141" VerticalAlignment="Stretch" Grid.ColumnSpan="2">
                             <Label Content="List of rules:" />
-                            <ListBox HorizontalAlignment="Left"  VerticalAlignment="Top"  ItemsSource="{Binding Path=(Rules)}" DisplayMemberPath="Name" SelectionChanged="ListBox_SelectionChanged" />
+                            <ListBox Name="ListBoxRules" HorizontalAlignment="Stretch"  VerticalAlignment="Top"  ItemsSource="{Binding Path=(Rules)}" DisplayMemberPath="Name" SelectionChanged="ListBox_SelectionChanged" />
+                            <Border Background="GhostWhite" BorderBrush="Gainsboro" BorderThickness="1" Grid.RowSpan="2" Grid.ColumnSpan="2">
+                                <Button Content="New" Click="Button_New" />
+                            </Border>
                         </StackPanel>
                     </Border>
                     <StackPanel Grid.Column="2" Margin="10,20,0,0" Grid.RowSpan="2">
@@ -43,8 +46,10 @@
                                 <TextBox Margin="5" Name="TextBoxFolder" TextWrapping="Wrap" Text="TextBox" />
                             </StackPanel>
                         </StackPanel>
-
-                        <Button Content="Save" Margin="0,10,40,10" Width="50" HorizontalAlignment="Right" Click="Button_Save"></Button>
+                        <StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal">
+                            <Button Content="Delete" Margin="0,10,40,10" Width="50" HorizontalAlignment="Center" Click="Button_Delete" />
+                            <Button Content="Save" Margin="0,10,40,10" Width="50" HorizontalAlignment="Center" Click="Button_Save" />
+                        </StackPanel>
                     </StackPanel>
                 </Grid>
             </TabItem>
@@ -65,6 +70,16 @@
                         </StackPanel>
                     </StackPanel>
                 </Grid>
+            </TabItem>
+            <TabItem Header="Startup">
+                <StackPanel Orientation="Horizontal" Grid.ColumnSpan="1" HorizontalAlignment="Stretch" Margin="2,27,0,0" VerticalAlignment="Stretch">
+                    <StackPanel>
+
+                        <CheckBox Content="Run on boot" IsChecked="{Binding StartOnBoot, Mode=TwoWay}" />
+                    </StackPanel>
+                    <StackPanel HorizontalAlignment="Stretch" Width="164">
+                    </StackPanel>
+                </StackPanel>
             </TabItem>
         </TabControl>
     </Grid>

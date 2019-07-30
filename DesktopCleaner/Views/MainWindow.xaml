@@ -9,9 +9,7 @@
 
     <Border BorderBrush="Black" BorderThickness="1" Grid.ColumnSpan="2" HorizontalAlignment="Stretch">
         <StackPanel HorizontalAlignment="Left" Margin="10,10,10,10">
-            <CheckBox Content="Run on boot" VerticalAlignment="Center" />
-            <Button Content="Rules" Margin="0,10,0,10" Click="Button_Click" />
-            <Button Content="Settings" Margin="0,10,0,10" Click="Button_Click_1" />
+            <Button Content="Settings" Margin="0,10,0,10" Click="Button_Click" />
         </StackPanel>
     </Border>
 </Window>

@@ -10,6 +10,7 @@ namespace DesktopCleaner.Models
     {
         public List<Rule> Rules { get; set; }
         public int Timer { get; set; }
+        public bool StartOnBoot { get; set; }
 
         public Settings()
         {

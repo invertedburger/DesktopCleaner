@@ -13,7 +13,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using DesktopCleaner.Controllers;
 using DesktopCleaner.Models;
+using Hardcodet.Wpf.TaskbarNotification;
 
 namespace DesktopCleaner
 {
@@ -25,13 +27,10 @@ namespace DesktopCleaner
         public MainWindow()
         {
             InitializeComponent();
-            var timer = new Timer(1000);
-            timer.Elapsed += TimerElaped;
-        }
 
-        public void TimerElaped(Object source, ElapsedEventArgs e)
-        {
+            TaskbarIcon tbi = new TaskbarIcon();
 
+            tbi.ToolTipText = "hello world";
         }
 
         private void TextBox_MouseUp(object sender, MouseButtonEventArgs e)
@@ -42,13 +41,7 @@ namespace DesktopCleaner
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             var newSettings = new SettingsWindow();
-            newSettings.Show();
-
-        }
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-
+            newSettings.ShowDialog();
         }
     }
 }

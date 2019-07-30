@@ -24,6 +24,7 @@ namespace DesktopCleaner
     {
         public ObservableCollection<Rule> RulesList { get; set; }
         private SettingsWindowController settingsWindowController;
+        private Rule selectedItem;
 
         public SettingsWindow()
         {
@@ -66,7 +67,7 @@ namespace DesktopCleaner
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var listbox = (ListBox)sender;
-            var selectedItem = (Rule)listbox.SelectedItem;
+            selectedItem = (Rule)listbox.SelectedItem;
 
             if ((selectedItem != null) && (selectedItem.Name != Consts.newRule))
             {
@@ -78,6 +79,21 @@ namespace DesktopCleaner
             {
                 TextBoxName.Text = TextBoxFileMask.Text = TextBoxFolder.Text = String.Empty;
             }
+        }
+
+        private void Button_Delete(object sender, RoutedEventArgs e)
+        {
+            settingsWindowController.DeleteRule(selectedItem);
+            this.DataContext = null;
+            this.DataContext = settingsWindowController.settings;
+        }
+
+        private void Button_New(object sender, RoutedEventArgs e)
+        {
+            ListBoxRules.SelectedItem = null;
+            TextBoxName.Text = "";
+            TextBoxFileMask.Text = "";
+            TextBoxFolder.Text = "";
         }
     }
 }
